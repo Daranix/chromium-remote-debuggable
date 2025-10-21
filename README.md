@@ -33,7 +33,7 @@ docker build -t chromium-remote-debuggable .
 Run the container exposing port 9222 (DevTools) and optionally a web app port (example 3001):
 
 ```pwsh
-docker run --rm -p 9222:9222 -p 3001:3001 --name chromium-debug chromium-remote-debuggable
+docker run --rm -p 9222:9223 -p 3001:3001 --name chromium-debug chromium-remote-debuggable
 ```
 
 Open DevTools on your host by navigating to:
@@ -53,7 +53,7 @@ services:
 		image: chromium-remote-debuggable
 		build: .
 		ports:
-			- "9222:9222"
+			- "9222:9223"
 		# For security: do not publish 9222 in production without network controls
 
 	app:
