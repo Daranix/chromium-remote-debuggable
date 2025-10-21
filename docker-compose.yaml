@@ -1,0 +1,25 @@
+services:
+  chrome:
+    build: .
+    container_name: chrome
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - CHROME_CLI=https://www.linuxserver.io/ --remote-debugging-port=9222 --remote-debugging-address=0.0.0.0 --remote-allow-origins=* --user-data-dir=/config/chrome-data
+    volumes:
+      - chrome-config:/config
+    ports:
+      - 3080:3000    # HTTP Web Interface
+      - 3081:3001    # HTTPS Web Interface
+      - 8082:8082
+      - 9222:9223    # Chrome DevTools Protocol (CDP)
+    shm_size: "1gb"
+    restart: unless-stopped
+
+
+
+volumes:
+  chrome-config:
